@@ -71,4 +71,3 @@ GROUP BY
 	e.bookid
 	, genre
 	, b.title
-ORDER by bookid
