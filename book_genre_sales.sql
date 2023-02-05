@@ -3,8 +3,8 @@ WITH
 	sq1 AS
 		(
 			SELECT 
-            isbn
-            , SUM(sales) as q1sales
+				isbn
+				, SUM(sales) as q1sales
 			FROM salesq1 
 			GROUP BY isbn
 		)
@@ -13,8 +13,8 @@ WITH
 	sq2 AS 
 		(
 			SELECT 
-            isbn
-            , SUM(sales) as q2sales
+				isbn
+				, SUM(sales) as q2sales
 			FROM salesq2 
 			GROUP BY isbn
 		)
@@ -23,8 +23,8 @@ WITH
 	sq3 AS
 		(
 			SELECT 
-            isbn
-            , SUM(sales) as q3sales
+				isbn
+				, SUM(sales) as q3sales
 			FROM salesq3 
 			GROUP BY isbn
 		)
@@ -33,22 +33,25 @@ WITH
 	sq4 AS
 		(
 			SELECT 
-            isbn
-            , SUM(sales) as q4sales
+				isbn
+				, SUM(sales) as q4sales
 			FROM salesq4 
 			GROUP BY isbn
 		)
 
 SELECT
-      e.bookid							AS bookid
+      e.bookid								AS bookid
       , genre								AS genre
-      , b.title							AS title
-      , count(distinct a."award name")				AS award_count
+      , b.title								AS title
+      , count(distinct a."award name")					AS award_count
       , sum(sq1.q1sales)						AS q1_sales
       , sum(sq2.q2sales)						AS q2_sales
       , sum(sq3.q3sales)						AS q3_sales
       , sum(sq4.q4sales)						AS q4_sales
-      , sum(sq1.q1sales) + sum(sq2.q2sales) + sum(sq3.q3sales) + sum(sq4.q4sales) AS total_sales
+      , sum(sq1.q1sales) 
+      	+ sum(sq2.q2sales) 
+		+ sum(sq3.q3sales) 
+			+ sum(sq4.q4sales) 				AS total_sales
 FROM edition e
 LEFT JOIN info i
 ON e.bookid = CONCAT(i.bookid1,bookid2)
